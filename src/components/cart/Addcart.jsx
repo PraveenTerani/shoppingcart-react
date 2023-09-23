@@ -2,9 +2,10 @@ import React, { useContext } from "react";
 import { data } from "../shop/data";
 import { ShopContext } from "../../context/Shopcontext";
 import { useNavigate } from "react-router-dom";
+import Banner from "../banner/Banner";
 
 export const Addcart = () => {
-  const { addToCart, cartitems, removeToCart, getTotalAmount } =
+  const { addToCart, cartitems, removeFromCart, getTotalAmount } =
     useContext(ShopContext);
   const totalAmount = getTotalAmount();
 
@@ -12,14 +13,8 @@ export const Addcart = () => {
 
   return (
     <>
-      <div className="bg-gradient-to-r from-blue-500 to-violet-600 text-white py-12 text-center">
-        <h1 className="text-3xl xl:text-5xl font-extrabold mb-4">
-          Your Cart Items
-        </h1>
-        <p className="xl:text-xl text-sm">
-          Explore and manage the items in your shopping cart.
-        </p>
-      </div>
+    <Banner heading={"Your Cart Items"} subheading={"Explore and manage the items in your shopping cart"}/>
+      
       <div className="container xl:max-w-7xl w-11/12 md:px-40 xl:px-60 mx-auto py-8">
         <div className="mt-8">
           {data.map((product) => {
@@ -37,7 +32,7 @@ export const Addcart = () => {
                         className="xl:h-36 xl:w-48 w-32 object-contain"
                       />
                     </div>
-                    <div className="w-full flex justify-center items-center flex-col gap-4">
+                    <div className="xl:w-[100rem] w-full flex justify-between  px-10 xl:items-center flex-col xl:flex-row xl:gap-10">
                       <div>
                         <p className="xl:text-lg text-base font-bold">
                           {product.title}
@@ -49,9 +44,9 @@ export const Addcart = () => {
                           ${product.newPrice}
                         </p>
                       </div>
-                      <div className=" items-center space-x-1 flex md:hidden">
+                      <div className=" items-center space-x-1 flex">
                         <button
-                          onClick={() => removeToCart(product.id)}
+                          onClick={() => removeFromCart(product.id)}
                           id="decrement"
                           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                         >
@@ -73,28 +68,7 @@ export const Addcart = () => {
                       </div>
                     </div>
                   </div>
-                  <div className=" items-center space-x-1 hidden md:flex">
-                    <button
-                      onClick={() => removeToCart(product.id)}
-                      id="decrement"
-                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                    >
-                      -
-                    </button>
-                    <input
-                      id="counter"
-                      type="text"
-                      className="border rounded w-16 py-2 text-center"
-                      value={cartitems[product.id]}
-                    />
-                    <button
-                      onClick={() => addToCart(product.id)}
-                      id="increment"
-                      className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-                    >
-                      +
-                    </button>
-                  </div>
+                
                 </div>
               );
             }
@@ -115,7 +89,7 @@ export const Addcart = () => {
             </button>
           </div>
         ) : (
-          <div className="">
+          <div className="-mt-14  flex  flex-col items-center">
             <img
               src="https://cdni.iconscout.com/illustration/premium/thumb/empty-cart-2130356-1800917.png"
               alt=""
